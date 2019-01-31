@@ -1,9 +1,9 @@
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
-ssh -t -i ~/keys/dpiscaglia.pem ubuntu@137.204.57.136 'sudo bash -i -c " 
+ssh -t -i ~/keys/dpiscaglia.pem ubuntu@18.212.1.122 'sudo bash -i -c " 
 
 
 if [ ! -d ~/Modeling4Cloud ]; then
-	git clone https://github.com/danipisca07/Modeling4Cloud.git
+	git clone https://github.com/jes-alpha/Modeling4Cloud.git
 else
 	cd ~/Modeling4Cloud
 	#cp -n -rf ~/Modeling4Cloud/uploads/ ~/backupPings/
