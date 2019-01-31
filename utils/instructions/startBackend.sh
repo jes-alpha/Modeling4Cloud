@@ -13,7 +13,7 @@ else
 		echo A Node instance was running, it was killed.
 		pgrep node | xargs sudo kill
 	fi
-	git pull --rebase https://github.com/danipisca07/Modeling4Cloud.git
+	git pull --rebase https://github.com/jes-alpha/Modeling4Cloud.git
 fi
 
 
