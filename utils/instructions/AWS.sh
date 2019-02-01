@@ -1,3 +1,5 @@
+#!/bin/bash
+#!/bin/bash
 ####Settings for hping direct tests
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=(
@@ -8,14 +10,14 @@ pings=(
 ####Settings for iperf direct tests
 #Provider, source-ssh-keyfile source-ip destination-ssh-keyfile destination-ip source-zone destination-zone connection-port sequence-number hour-interval duration parallel
 iperfs=(
-	"AWS ./keys/jBiancoNVirginia.pem 18.234.104.108 ./keys/jBiancoIreland.pem 334.245.60.97 us-east-1c eu-west-1c 80 1 14 1 1" 
+	"AWS ./keys/jBiancoNVirginia.pem 18.234.104.108 ./keys/jBiancoIreland.pem 34.245.60.97 us-east-1c eu-west-1c 80 1 14 1 1" 
 	)
 
 
 ####Settings for qperf direct tests
 #Provider, source-ssh-keyfile source-ip destination-ssh-keyfile destination-ip source-zone destination-zone connection-port sequence-number
 qperfs=(
-	"AWS ./keys/jBiancoIreland.pem 334.245.60.97 ./keys/jBiancoNVirginia.pem 18.234.104.108 eu-west-1c us-east-1c 8080 1"
+	"AWS ./keys/jBiancoIreland.pem 34.245.60.97 ./keys/jBiancoNVirginia.pem 18.234.104.108 eu-west-1c us-east-1c 8080 1"
 	)
 
 
@@ -38,6 +40,6 @@ IPERF_BIDIRECTIONAL=0 #Test in both directions between regions(1) or not(0)
 #Information about vms to use for the cross region tests
 vms=(
 "./keys/jBiancoNVirginia.pem 18.234.104.108 us-east-1c"
-"./keys/jBiancoIreland.pem 334.245.60.97 eu-west-1c"
+"./keys/jBiancoIreland.pem 34.245.60.97 eu-west-1c"
 
 )

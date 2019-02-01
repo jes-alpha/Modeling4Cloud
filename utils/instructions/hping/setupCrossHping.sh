@@ -1,3 +1,5 @@
+#!/bin/bash
+#!/bin/bash
 CONFIG=$1
 BACKENDADDR=$2
 

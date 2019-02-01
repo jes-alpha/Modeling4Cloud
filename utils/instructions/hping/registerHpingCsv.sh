@@ -1,3 +1,4 @@
+#!/bin/bash
 PROVIDER=$1
 FROMZONE=$2
 TOZONE=$3

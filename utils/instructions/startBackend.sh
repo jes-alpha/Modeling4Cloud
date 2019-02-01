@@ -1,3 +1,6 @@
+#!/bin/bash
+#!/bin/bash
+
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
 ssh -t -i ~/keys/jBiancoNVirginia.pem ubuntu@18.212.1.122 'sudo bash -i -c " 
 

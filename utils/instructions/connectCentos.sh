@@ -1,3 +1,4 @@
+#!/bin/bash
 HOST=$1
 if [ ! $HOST ]
 	then
