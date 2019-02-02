@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 PROVIDER=$1 # TODO provider, number are the same in register and curl: find a method for unifying
 NUMBER=$2

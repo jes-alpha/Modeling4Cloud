@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 sudo rm -f ~/mongosM4C*
 nohup mongos --configdb configM4C/10.0.0.18:27018 --bind_ip 0.0.0.0 --port 27017 > ~/mongosM4C.out 2> ~/mongosM4C.err < /dev/null &
 
