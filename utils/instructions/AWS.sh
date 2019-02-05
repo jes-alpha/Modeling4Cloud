@@ -3,7 +3,8 @@
 ####Settings for hping direct tests
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=(
-	"AWS ./keys/jBiancoNVirginia.pem 18.234.104.108 54.147.108.66 us-east-1c us-east-1a 2"
+	"AWS ./keys/jBiancoNVirginia.pem 18.234.104.108 54.147.108.66 us-east-1c us-east-1a 1"
+	"AWS ./keys/jBiancoNVirginia.pem 18.234.104.108 34.207.250.169 us-east-1c us-east-1c 2"
 	)
 
 
