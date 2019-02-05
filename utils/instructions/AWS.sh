@@ -34,7 +34,7 @@ HPING_BIDIRECTIONAL=1 #Test in both directions between regions(1) or not(0)
 
 #Iperf settings
 PORT=80 #Port used for iperf tests
-IPERF_HOUR_INTERVAL=1 #Time between tests in hours
+IPERF_HOUR_INTERVAL=12 #Time between tests in hours
 DURATION=1 #Duration of each bandwitdh test
 PARALLEL=1 #Number of parallel connection opened by each iperf bandwidth test
 IPERF_BIDIRECTIONAL=1 #Test in both directions between regions(1) or not(0)
