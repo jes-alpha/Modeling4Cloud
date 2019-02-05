@@ -41,5 +41,5 @@ IPERF_BIDIRECTIONAL=0 #Test in both directions between regions(1) or not(0)
 vms=(
 "./keys/jBiancoNVirginia.pem 18.234.104.108 us-east-1c"
 "./keys/jBiancoIreland.pem 34.245.60.97 eu-west-1c"
-
+"./keys/jBiancoLondon.pem 3.8.148.33 eu-west-2a"
 )
