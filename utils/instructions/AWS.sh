@@ -30,14 +30,14 @@ PROVIDER=AWS
 #Hping settings
 HPINGBASEPORT=6000 #Starting port of the incremental range for hping used ports
 HPING_SECONDS_INTERVAL=10 #Time between tests in seconds
-HPING_BIDIRECTIONAL=1 #Test in both directions between regions(1) or not(0)
+HPING_BIDIRECTIONAL=0 #Test in both directions between regions(1) or not(0)
 
 #Iperf settings
 PORT=80 #Port used for iperf tests
-IPERF_HOUR_INTERVAL=12 #Time between tests in hours
+IPERF_HOUR_INTERVAL=25 #Time between tests in hours
 DURATION=1 #Duration of each bandwitdh test
 PARALLEL=1 #Number of parallel connection opened by each iperf bandwidth test
-IPERF_BIDIRECTIONAL=1 #Test in both directions between regions(1) or not(0)
+IPERF_BIDIRECTIONAL=0 #Test in both directions between regions(1) or not(0)
 
 #Information about vms to use for the cross region tests
 vms=(
