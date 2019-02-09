@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BACKENDADDRPINGS=http://40.113.0.140:3100/api/upload
-BACKENDADDRBANDWITDHS=http://40.113.0.140:3100/api/uploadBandwidths
+BACKENDADDRPINGS=http://40.85.79.49:3100/api/upload
+BACKENDADDRBANDWITDHS=http://40.85.79.49:3100/api/uploadBandwidths
 
 #./hping/setupHping.sh ./AWS.sh $BACKENDADDRPINGS
 ./hping/setupHping.sh ./AZR.sh $BACKENDADDRPINGS
@@ -9,12 +9,12 @@ BACKENDADDRBANDWITDHS=http://40.113.0.140:3100/api/uploadBandwidths
 #./hping/setupHping.sh ./IBM.sh $BACKENDADDRPINGS
 
 #./iperf/setupIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
-./iperf/setupIperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
+#./iperf/setupIperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
 #./iperf/setupIperf.sh ./GCP.sh $BACKENDADDRBANDWITDHS
 #./iperf/setupIperf.sh ./IBM.sh $BACKENDADDRBANDWITDHS
 
 #./qperf/setupQperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
-./qperf/setupQperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
+#./qperf/setupQperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
 #./qperf/setupQperf.sh ./GCP.sh $BACKENDADDRBANDWITDHS
 #./qperf/setupQperf.sh ./IBM.sh $BACKENDADDRBANDWITDHS
 

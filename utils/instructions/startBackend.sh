@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
-ssh -t -i ~/keys/jBianco.pem ubuntu@40.113.0.140 'sudo bash -i -c " 
+ssh -t -i ~/keys/jBianco.pem ubuntu@40.85.79.49 'sudo bash -i -c " 
 
 
 if [ ! -d ~/Modeling4Cloud ]; then
