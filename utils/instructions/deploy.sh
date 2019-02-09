@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BACKENDADDRPINGS=http://40.85.79.49:3100/api/upload
-BACKENDADDRBANDWITDHS=http://40.85.79.49:3100/api/uploadBandwidths
+BACKENDADDRPINGS=http://40.127.196.97:3100/api/upload
+BACKENDADDRBANDWITDHS=http://40.127.196.97:3100/api/uploadBandwidths
 
 #./hping/setupHping.sh ./AWS.sh $BACKENDADDRPINGS
 ./hping/setupHping.sh ./AZR.sh $BACKENDADDRPINGS
