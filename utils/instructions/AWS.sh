@@ -1,3 +1,4 @@
+#!/bin/bash
 ####Settings for hping direct tests
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=(

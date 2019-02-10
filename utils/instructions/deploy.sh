@@ -1,3 +1,4 @@
+#!/bin/bash
 BACKENDADDRPINGS=http://13.79.231.114:3100/api/upload
 BACKENDADDRBANDWITDHS=http://13.79.231.114:3100/api/uploadBandwidths
 
