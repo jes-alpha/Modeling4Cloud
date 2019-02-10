@@ -1,7 +1,7 @@
 #!/bin/bash
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=(
-    "AZR ./keys/jBianco.pem 51.140.46.97 40.127.204.63 uksouth northeurope 1"
+    "AZR ./keys/jBianco.pem 51.140.65.17 40.115.109.58 uksouth northeurope 1"
     )
 
 #Provider, source-ssh-keyfile source-ip destination-ssh-keyfile destination-ip source-zone destination-zone connection-port sequence-number hour-interval duration parallel
