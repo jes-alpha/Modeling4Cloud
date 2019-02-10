@@ -1,4 +1,3 @@
-#!/bin/bash
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=("IBM ./keys/ibm 159.122.184.179 159.8.123.35 MIL01 PAR01 1")
 

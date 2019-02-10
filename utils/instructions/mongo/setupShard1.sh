@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 echo __________________________ 10.0.0.7 __________________________
 if pgrep mongo > /dev/null
 then

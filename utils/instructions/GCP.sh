@@ -1,4 +1,3 @@
-#!/bin/bash
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
 pings=("GCP ./keys/gcp 35.240.56.132 35.242.174.100 eu-west1-b eu-west2-a 1")
 

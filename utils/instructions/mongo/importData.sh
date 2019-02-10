@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 echo  __________________________ Import ~/backupPings/  __________________________ 
 #sudo sed -i '/,,/d' ~/backupPings/*.csv
 #sudo sed -i '/,SA,/d' ~/backupPings/*.csv

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
 ssh -t -i ~/keys/jBianco.pem ubuntu@13.79.231.114 'sudo bash -i -c " 
 

@@ -1,4 +1,3 @@
-#!/bin/bash
 COUNT=0;
 SUM=0;
 CURRENTLINES=0;
