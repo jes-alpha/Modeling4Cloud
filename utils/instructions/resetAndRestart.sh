@@ -1,7 +1,7 @@
 
 
 for a in "${awsProbes[@]}"
-
+do
 	KEY=$(echo $a | awk '{print $1}')
 	HOST=$(echo $a | awk '{print $2}')
 	
@@ -16,6 +16,6 @@ for a in "${awsProbes[@]}"
     rm -f -r ~/csvIperf
     rm -f -r ~/Modeling4Cloud
     "'
-do
+done
 
 echo end
