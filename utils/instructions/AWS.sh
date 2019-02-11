@@ -40,6 +40,6 @@ IPERF_BIDIRECTIONAL=0 #Test in both directions between regions(1) or not(0)
 #Information about vms to use for the cross region tests
 vms=(
 "./keys/jBiancoNVirginia.pem 18.205.114.73 us-east-1c"
-"./keys/jBiancoIreand.pem 18.205.114.73 us-east-1c"
-"./keys/jBiancoLondon.pem 18.205.114.73 us-east-1c"
+"./keys/jBiancoIreland.pem 34.244.169.175 eu-west-1c"
+"./keys/jBiancoLondon.pem 18.130.96.67 eu-west-2a"
 )
