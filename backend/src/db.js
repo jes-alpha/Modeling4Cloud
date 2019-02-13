@@ -3,7 +3,7 @@
 // const url = 'mongodb://albertobagnacani:modeling4cloud@10.0.0.14/pings'; // TODO secrets?
 //const url = 'mongodb://albertobagnacani:modeling4cloud@137.204.57.93:27017/pings'; // TODO secrets?
 
-const url = 'mongodb://jBianco:m4cloud@ds034807.mlab.com:34807/modelling4cloud';
+export const url = 'mongodb://jBianco:m4cloud@ds034807.mlab.com:34807/modelling4cloud';
 
 var mongoose = require('mongoose');
 
@@ -12,4 +12,3 @@ mongoose.connect(url, function(err, db){
     else console.log('Connection established to DB:' + url);
 });
 
-export {url};
