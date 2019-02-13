@@ -1,5 +1,5 @@
 
-
+#TODO add source comand
 for a in "${awsProbes[@]}"
 do
 	KEY=$(echo $a | awk '{print $1}')

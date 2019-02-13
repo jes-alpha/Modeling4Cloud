@@ -29,7 +29,6 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-
     // and remove cacheing so we get the most recent
     //res.setHeader('Cache-Control', 'no-cache');
     next();
@@ -46,7 +45,8 @@ router.route('/upload').post(upload.single('data'), function (req, res) {
         res.status(200).send("File registered\n");
         console.log("File uploaded(Ping):" + req.file.originalname);
         const { exec } = require('child_process'); // TODO secrets?
-        exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\' | sed \'/,RA,/d\' | mongoimport -h localhost:27017 -u nodeUser -p modelingforcloudnode -d pings -c pings --authenticationDatabase admin --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
+        exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\' | sed \'/,RA,/d\' | mongoimport -uri '+db.url+' -c pings --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
+        //exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\' | sed \'/,RA,/d\' | mongoimport -h localhost:27017 -u nodeUser -p modelingforcloudnode -d pings -c pings --authenticationDatabase admin --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
         //        exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' | mongoimport -h 10.0.0.14:27017 -d pings -c pings -u albertobagnacani -p modeling4cloud --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
             if (err) {
                 // TODO
@@ -66,7 +66,9 @@ router.route('/uploadBandwidths').post(uploadBW.single('data'), function (req, r
         res.status(200).send("File registered\n");
         console.log("File uploaded(Bandwidth test):" + req.file.originalname);
         const { exec } = require('child_process'); // TODO secrets?
-        exec('tail -n +2 '+ UPLOADBW_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport -h localhost:27017 -d pings -c bandwidths --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),bandwidth.double\(\),duration.int32\(\),parallel.int32\(\),transfer.double\(\),retransmissions.int32\(\)"', (err, stdout, stderr) => {
+        exec('tail -n +2 '+ UPLOADBW_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport -uri '+db.url+' -c bandwidths --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),bandwidth.double\(\),duration.int32\(\),parallel.int32\(\),transfer.double\(\),retransmissions.int32\(\)"', (err, stdout, stderr) => {
+
+        // exec('tail -n +2 '+ UPLOADBW_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport -h localhost:27017 -d pings -c bandwidths --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),bandwidth.double\(\),duration.int32\(\),parallel.int32\(\),transfer.double\(\),retransmissions.int32\(\)"', (err, stdout, stderr) => {
             //        exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' | mongoimport -h 10.0.0.14:27017 -d pings -c pings -u albertobagnacani -p modeling4cloud --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
             if (err) {
                 // TODO

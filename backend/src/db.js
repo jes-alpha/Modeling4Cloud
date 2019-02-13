@@ -11,3 +11,5 @@ mongoose.connect(url, function(err, db){
     if (err) console.log('Unable to connect to DB ' + url + '. Error: ' + err);
     else console.log('Connection established to DB:' + url);
 });
+
+export {url};
