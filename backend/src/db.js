@@ -3,7 +3,7 @@
 // const url = 'mongodb://albertobagnacani:modeling4cloud@10.0.0.14/pings'; // TODO secrets?
 //const url = 'mongodb://albertobagnacani:modeling4cloud@137.204.57.93:27017/pings'; // TODO secrets?
 
-export const url = 'mongodb://jBianco:m4cloud@ds034807.mlab.com:34807/modelling4cloud';
+const url = 'mongodb://jBianco:m4cloud@ds034807.mlab.com:34807/modelling4cloud';
 
 var mongoose = require('mongoose');
 
