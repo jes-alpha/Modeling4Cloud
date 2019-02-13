@@ -12,3 +12,4 @@ mongoose.connect(url, function(err, db){
     else console.log('Connection established to DB:' + url);
 });
 
+exports.url = url;
