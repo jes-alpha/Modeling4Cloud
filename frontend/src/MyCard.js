@@ -4,7 +4,8 @@ import MyGraph from './MyGraph';
 import moment from "moment/moment";
 
 //var backendAddress = 'http://localhost:3100/api/';
-var backendAddress = 'http://137.204.57.136:3100/api/';
+//var backendAddress = 'http://137.204.57.136:3100/api/';
+var backendAddress = 'http://54.234.131.88:3100/api/';
 
 var styles = {
     root: {
