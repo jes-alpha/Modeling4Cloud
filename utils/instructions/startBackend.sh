@@ -2,6 +2,7 @@
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
 ssh -t -i ~/keys/jBiancoNVirginia.pem ubuntu@54.234.131.88 'sudo bash -i -c " 
 
+sudo apt install mongo-tools
 
 if [ ! -d ~/Modeling4Cloud ]; then
 	git clone https://github.com/jes-alpha/Modeling4Cloud.git
