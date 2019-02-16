@@ -10,7 +10,7 @@ BACKEND_ADDR=$8
 INTERVAL=$9
 
 #Download da github
-#rm -r -f ~/Modeling4Cloud 
+#rm -r -f ~/Modeling4Cloud
 #git clone https://github.com/danipisca07/Modeling4Cloud.git
 
 
@@ -25,8 +25,8 @@ cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $SEQ_NUMBER $BACKEND_ADDR ~/c
 chmod +x ~/Modeling4Cloud/utils/curlCsv.sh #Rende eseguibile lo script per il caricamento dei ping eseguiti
 #crontab -r #Rimuove tutti i crontab
 if ! crontab -l | grep -q "$cline" ; then
-	(crontab -l ; echo '0 0 * * *' "$cline" ) | crontab - 
-	echo Added hpingCurl crontab
+    (crontab -l ; echo '0 0 * * *' "$cline" ) | crontab -
+    echo Added hpingCurl crontab
 else
-	echo hpingCurl crontab already setup
+    echo hpingCurl crontab already setup
 fi

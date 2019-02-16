@@ -1,6 +1,7 @@
 #!/bin/bash
 BACKENDADDRPINGS=http://54.234.131.88:3100/api/upload
 BACKENDADDRBANDWITDHS=http://54.234.131.88:3100/api/uploadBandwidths
+BACKENDADDRBANDWITDHS=http://54.234.131.88:3100/api/uploadBenchmark
 
 #./resetAndRestart.sh ./allProbes.sh
 
@@ -22,4 +23,4 @@ BACKENDADDRBANDWITDHS=http://54.234.131.88:3100/api/uploadBandwidths
 ./hping/setupCrossHping.sh ./AWS.sh $BACKENDADDRPINGS
 ./iperf/setupCrossIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
 
-
+./sysbench/setupSysbench.sh ./allVM $BACKENDADDR
