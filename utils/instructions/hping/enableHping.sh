@@ -9,11 +9,6 @@ PORT=$7
 BACKEND_ADDR=$8
 INTERVAL=$9
 
-#Download da github
-#rm -r -f ~/Modeling4Cloud
-#git clone https://github.com/danipisca07/Modeling4Cloud.git
-
-
 #Avvia pinging
 chmod +x ~/Modeling4Cloud/utils/registerHpingCsv.sh #Rende eseguibile lo script per il pinging
 nohup ~/Modeling4Cloud/utils/registerHpingCsv.sh $PROVIDER $FROMZONE $TOZONE $FROMIP $TOIP $SEQ_NUMBER $PORT $INTERVAL > $FROMZONE-$TOZONE-$SEQ_NUMBER.out 2> $FROMZONE-$TOZONE-$SEQ_NUMBER.err < /dev/null &
