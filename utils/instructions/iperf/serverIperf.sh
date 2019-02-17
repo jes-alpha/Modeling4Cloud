@@ -17,7 +17,7 @@ if ! crontab -l | grep -q "$cline" ; then
 	(crontab -l ; echo '*/30 * * * *' "$cline" ) | crontab - 
 	echo Added iperServer crontab
 else
-	echo iperServer crontab already setup
+	echo iperfServer crontab already setup
 fi
 
 if pgrep -x iperf3 > /dev/null

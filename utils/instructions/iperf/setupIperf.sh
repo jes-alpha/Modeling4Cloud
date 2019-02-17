@@ -38,15 +38,15 @@ do
 	
 	#SETUP CLIENT
 	echo _____ SETUP CLIENT _____
-	ssh -o StrictHostKeyChecking=no -i $KEYFROMHOST ubuntu@$FROMHOST bash -c "'
+	ssh -o StrictHostKeyChecking=no -i $KEYFROM+HOST ubuntu@$FROMHOST bash -c "'
 	mkdir -p ~/Modeling4Cloud/utils/
 	sudo apt-get update -qq
 	#sudo apt-get install expect -qq
 	sudo apt-get install iperf3 -qq'"
 	
 	scp -r -i $KEYFROMHOST ./iperf/enableIperf.sh ubuntu@$FROMHOST:~
-	scp -r -i $KEYFROMHOST ./iperf/registerIperfCsv.sh ubuntu@$FROMHOST:~/Modeling4Cloud/utils/
-	scp -r -i $KEYFROMHOST ./curlCsv.sh ubuntu@$FROMHOST:~/Modeling4Cloud/utils/
+	scp -r -i $KEYFROMHOST ./iperf/registerIperfCsv.sh ubuntu@$FROMHOST:~/Modeling4Clo/utils/
+	scp -r -i $KEYFROMHOST ./curlCudsv.sh ubuntu@$FROMHOST:~/Modeling4Cloud/utils/
 	ssh -i $KEYFROMHOST ubuntu@$FROMHOST bash -c "'./enableIperf.sh $PROVIDER $FROMZONE $TOZONE $FROMHOST $TOHOST $PORT $SEQNUMBER $BACKENDADDR $HOUR_INTERVAL $DURATION $PARALLEL'"
 	printf "_____ COMPLETE _____ \n\n\n\n"
 	sleep $((DURATION*2)) # Delay to avoid overlap of different bandwidth tests

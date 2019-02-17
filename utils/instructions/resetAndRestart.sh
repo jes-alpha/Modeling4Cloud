@@ -8,7 +8,7 @@ do
     echo deleting $HOST..
 	ssh -o StrictHostKeyChecking=no -i $KEY ubuntu@$HOST 'sudo bash -i -c "
 
-    crontab -r
+   # crontab -r
     rm -f ~/*.out
     rm -f ~/*.err
     rm -f ~/*.sh
