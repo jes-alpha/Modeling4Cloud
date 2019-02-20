@@ -4,7 +4,7 @@ HOST=$2
 BACKEND_ADDR=$3
 
 cline="~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err </dev/null &"
-chmod +x ~/Modeling4Cloud/utils/registerSysbenchCsv.sh # Makes the script runnable to be able to perform the benchmarking tests
+chmod +x ~/Modeling4Cloud/utils/registerSysbenchCSV.sh # Makes the script runnable to be able to perform the benchmarking tests
 
 # Set up the test to run every 30 minutes, if crontb already exists it is updated
 if ! crontab -l | grep -q "$cline" ; then
