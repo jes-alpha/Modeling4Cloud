@@ -10,7 +10,7 @@ fi
 TODAY=$(date +%Y-%m-%d)
 FILE=~/csvBenchmark/$PROVIDER-$HOST-$TODAY.csv
 
-if ! [ -s "$FILE" ]
+if ! [ -f "$FILE" ]
 	then
 		printf "provider, ip, timestamp, threads, total time, total events, cpus\n" >> "$FILE"
 fi
