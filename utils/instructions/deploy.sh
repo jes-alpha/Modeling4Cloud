@@ -4,13 +4,13 @@ BACKENDADDRBANDWITDHS=http://54.234.131.88:3100/api/uploadBandwidths
 BACKENDADDRBENCHMARKS=http://54.234.131.88:3100/api/uploadBenchmarks
 #./cleanCronAndReboot.sh ./allVM.sh
 
-./hping/setupHping.sh ./AWS.sh $BACKENDADDRPINGS
-./hping/setupHping.sh ./AZR.sh $BACKENDADDRPINGS
+#./hping/setupHping.sh ./AWS.sh $BACKENDADDRPINGS
+#./hping/setupHping.sh ./AZR.sh $BACKENDADDRPINGS
 #./hping/setupHping.sh ./GCP.sh $BACKENDADDRPINGS
 #./hping/setupHping.sh ./IBM.sh $BACKENDADDRPINGS
 
-./iperf/setupIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
-./iperf/setupIperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
+#./iperf/setupIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
+#./iperf/setupIperf.sh ./AZR.sh $BACKENDADDRBANDWITDHS
 #./iperf/setupIperf.sh ./GCP.sh $BACKENDADDRBANDWITDHS
 #./iperf/setupIperf.sh ./IBM.sh $BACKENDADDRBANDWITDHS
 
@@ -19,7 +19,7 @@ BACKENDADDRBENCHMARKS=http://54.234.131.88:3100/api/uploadBenchmarks
 #./qperf/setupQperf.sh ./GCP.sh $BACKENDADDRBANDWITDHS
 #./qperf/setupQperf.sh ./IBM.sh $BACKENDADDRBANDWITDHS
 
-./hping/setupCrossHping.sh ./AWS.sh $BACKENDADDRPINGS
-./iperf/setupCrossIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
+#./hping/setupCrossHping.sh ./AWS.sh $BACKENDADDRPINGS
+#./iperf/setupCrossIperf.sh ./AWS.sh $BACKENDADDRBANDWITDHS
 
-./sysbench/setupSysbench.sh ./allVM $BACKENDADDRBENCHMARKS
+./sysbench/setupSysbench.sh ./allVM.sh $BACKENDADDRBENCHMARKS
