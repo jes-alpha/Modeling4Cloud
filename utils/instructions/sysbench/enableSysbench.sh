@@ -24,3 +24,5 @@ if ! crontab -l | grep -q "$cline" ; then
 else
 	echo crontab job for curlCsv already present
 fi
+
+echo finished setting up enableSysbench

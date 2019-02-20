@@ -19,6 +19,8 @@ do
     scp -r -i $KEY ./sysbench/enableSysbench.sh ubuntu@$HOST:~
     scp -r -i $KEY ./sysbench/registerSysbenchCSV.sh ubuntu@$HOST:~/Modeling4Cloud/utils/
     scp -r -i $KEY ./sysbench/setupSysbench.sh ubuntu@$HOST:~/Modeling4Cloud/utils/
-    ssh -i $KEY ubuntu@$HOST bash -c "'./enableSysbench.sh $PROVIDER $HOST $BACKENDADDR $INTERVAL '"
+    ssh -i $KEY ubuntu@$HOST bash -c "
+    chmod +x ~/enableSysbench.sh
+    './enableSysbench.sh $PROVIDER $HOST $BACKENDADDR $INTERVAL '"
     printf "_____ COMPLETE _____ \n\n\n\n"
 done
