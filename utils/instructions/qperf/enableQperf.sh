@@ -19,7 +19,6 @@ else
 	echo Crontab job già presente per registerQperfCsv
 fi
 
-
 #Schedula lo script per il caricamento al backend dei ping ogni mezzanotte
 cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $SEQ_NUMBER $BACKEND_ADDR ~/csvQperf"
 chmod +x ~/Modeling4Cloud/utils/curlCsv.sh #Rende eseguibile lo script per il caricamento dei ping eseguiti
