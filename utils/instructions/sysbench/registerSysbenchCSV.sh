@@ -19,7 +19,7 @@ for each in 1 2 4 8 16 32 64
 do
 # Benchmark result
 BMRESULT=$(sysbench cpu --cpu-max-prime=20000 --threads=$each run)
-echo $BMRESULT
+#echo $BMRESULT
 
 THREADS=$each
 TOTTIME=$(echo "$BMRESULT" | grep "total time:" | awk '{print $3}' | cut -d s -f1)
