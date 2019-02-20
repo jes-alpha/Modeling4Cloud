@@ -2,35 +2,35 @@
 PROVIDER=$1
 HOST=$2
 
-#echo Started with params: 
-
-if [ ! -d ~/csvBandwidth ]; then
-  mkdir ~/csvBandwidth
+if [ ! -d ~/csvBenchmark ]; then
+  mkdir ~/csvBenchmark
 fi
 
-echo "~/Modeling4Cloud/utils/registerBandwidthCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err < /dev/null"> /dev/null
-#todo
-RESULT=$(sudo iperf3 -c $TOHOST -p $PORT -t $DURATION -P $PARALLEL -i $DURATION -f M)
-#echo "$RESULT" #dev
-
-SENDER=$(echo "$RESULT" | tail -n 4 | head -1)
-RECEIVER=$(echo "$RESULT" | tail -n 3 | head -1)
-
+#chrontab is done at *:45 and *:15 thus it is extremley improbable that the tests are not run in the same day.
 TODAY=$(date +%Y-%m-%d)
-TIMESTAMP=$(date "+%Y-%m-%dT%H:%M:%S-00:00")
-
-
-
-FILE=~/csvBandwidth/$PROVIDER-$TODAY.csv
+FILE=~/csvBandwidth/$PROVIDER-$HOST-$TODAY.csv
 
 if ! [ -s $FILE ]
 	then
-		printf "provider, ip, timestamp, threads, primeNumbers, eventsPerSec, totalEvents, time\n" >> $FILE
+		printf "provider, ip, timestamp, threads, total time, total events, cpus\n" >> $FILE
 fi
 
+for each in 1 2 4 8 16 32 64
+do
+# Benchmark result
+BMRESULT=$(sysbench cpu --cpu-max-prime=20000 --threads=$each run)
+echo $BMRESULT
 
-printf "$PROVIDER,$FROMZONE,$TOZONE,$FROMHOST,$TOHOST,$TIMESTAMP,$BANDWIDTH,$DURATION,$PARALLEL,$TRANSFER,$RETRANSMISSIONS\n" >> $FILE
-# curl -d "provider=$PROVIDER&fromZone=$FROMZONE&toZone=$TOZONE&fromHost=$FROMHOST&toHost=$TOHOST&icmp_seq=$ICMPSEQ&ttl=$TTL&time=$TIME" -X POST $SERVER
+THREADS=$each
+TOTTIME=$(echo "$BMRESULT" | grep "total time:" | awk '{print $3}' | cut -d s -f1)
+TOTEVENTS=$(echo "$BMRESULT" | grep "total number of events:" | awk '{print $5}' )
+#MAXPRIME=$(echo "$BMRESULT" | grep "Prime numbers limit:" | awk '{print$4}' )
 
-#Duration 3 parallel 1 interval 3 = network usage 372 MB
-#Duration 1 parallel 1 interval 1 = network usage 122 MB
+# Hardware result
+# lscpu --parse includes  4 lines with comments starting with '#''
+NCPU=$(lscpu --parse | grep -v "#" | wc -l)
+
+TIMESTAMP=$(date "+%Y-%m-%dT%H:%M:%S-00:00")
+
+printf "$PROVIDER, $HOST, $TIMESTAMP, $THREADS, $TOTTIME, $TOTEVENTS, $NCPU\n" >> $FILE
+done

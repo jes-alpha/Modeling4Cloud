@@ -3,29 +3,24 @@ PROVIDER=$1
 HOST=$2
 BACKEND_ADDR=$3
 
-cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $BACKEND_ADDR ~/csvBenchmark"
-chmod +x ~/Modeling4Cloud/utils/registerSysbenchCsv.sh #Rende eseguibile lo script per il pinging
-nohup ~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > $HOST.out 2> $host.err < /dev/null &
-#~/Modeling4Cloud/utils/registerHpingCsv.sh $PROVIDER $FROMZONE $TOZONE $TOIP $SEQ_NUMBER
+cline="~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err </dev/null &"
+chmod +x ~/Modeling4Cloud/utils/registerSysbenchCsv.sh # Makes the script runnable to be able to perform the benchmarking tests
 
-
-#Schedula lo script per il caricamento al backend dei ping ogni mezzanotte
-cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $BACKEND_ADDR ~/csv"
-chmod +x ~/Modeling4Cloud/utils/curlCsv.sh #Rende eseguibile lo script per il caricamento dei ping eseguiti
-#crontab -r #Rimuove tutti i crontab
+# Set up the test to run every 30 minutes, if crontb already exists it is updated
 if ! crontab -l | grep -q "$cline" ; then
-    (crontab -l ; echo '0 0 * * *' "$cline" ) | crontab -
-    echo Added hpingCurl crontab
+	(crontab -l ; echo '45,15 0 * * *' "$cline" ) | crontab -  
+	echo Added crontab for sysbencg
 else
-    echo hpingCurl crontab already setup
+	echo crontab job for sysbench already present
 fi
 
-mkdir -p ~/Modeling4Cloud/utils/
-sudo apt-get update -qq
-chmod +x  ~/runCpuTest.sh #TODO check  path
-if crontab -l | grep -q "$cline" ;
-then
-    echo "sysbench crontab already set, updating"
+# Schedules the curlCsv script to run each day at midnight
+cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $BACKEND_ADDR ~/csvBenchmark"
+chmod +x ~/Modeling4Cloud/utils/curlCsv.sh # Makes the script runnable to be able to upload the benchmarking tests to the server
+
+if ! crontab -l | grep -q "$cline" ; then
+	(crontab -l ; echo '0 0 * * *' "$cline" ) | crontab -  
+	echo Added crontab for curlCsv
+else
+	echo crontab job for curlCsv already present
 fi
-	crontab -e */30 * * * * ~/runCpuTest.sh > sysbench.out 2> sysbench.err < /dev/null &
-	echo added sysbench crontab
