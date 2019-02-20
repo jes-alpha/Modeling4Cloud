@@ -8,11 +8,11 @@ fi
 
 #chrontab is done at *:45 and *:15 thus it is extremley improbable that the tests are not run in the same day.
 TODAY=$(date +%Y-%m-%d)
-FILE=~/csvBenchmark/Benchmark-$PROVIDER-$HOST-$TODAY.csv
+FILE=~/csvBenchmark/$PROVIDER-$HOST-$TODAY.csv
 
-if ! [ -s $FILE ]
+if ! [ -s "$FILE" ]
 	then
-		printf "provider, ip, timestamp, threads, total time, total events, cpus\n" >> $FILE
+		printf "provider, ip, timestamp, threads, total time, total events, cpus\n" >> "$FILE"
 fi
 
 for each in 1 2 4 8 16 32 64
