@@ -14,8 +14,7 @@ do
     ssh -o StrictHostKeyChecking=no -i $KEY ubuntu@$HOST bash -c "'
 	mkdir -p ~/Modeling4Cloud/utils/
 	sudo apt-get update -qq
-    sudo apt-get install sysbench -qq
-    sudo apt-get install lscpu -qq'"
+    sudo apt-get install sysbench -qq'"
     
     scp -r -i $KEY ./sysbench/enableSysbench.sh ubuntu@$HOST:~
     scp -r -i $KEY ./sysbench/registerSysbenchCSV.sh ubuntu@$HOST:~/Modeling4Cloud/utils/

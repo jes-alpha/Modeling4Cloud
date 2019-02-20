@@ -26,3 +26,7 @@ else
 fi
 
 echo finished setting up enableSysbench
+
+echo first run
+bash ~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err </dev/null &
+echo enablySysbench firt run fnished

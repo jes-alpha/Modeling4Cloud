@@ -34,3 +34,5 @@ TIMESTAMP=$(date "+%Y-%m-%dT%H:%M:%S-00:00")
 
 printf "$PROVIDER, $HOST, $TIMESTAMP, $THREADS, $TOTTIME, $TOTEVENTS, $NCPU\n" >> $FILE
 done
+
+echo finished registerSysbencCSV
