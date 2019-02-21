@@ -3,8 +3,7 @@ PROVIDER=$1
 HOST=$2
 BACKEND_ADDR=$3
 
-cline="~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err </dev/null &"
-chmod +x ~/Modeling4Cloud/utils/registerSysbenchCSV.sh # Makes the script runnable to be able to perform the benchmarking tests
+cline="~/Modeling4Cloud/utils/registerSysbenchCSV.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err < /dev/null &"
 
 # Set up the test to run every 30 minutes, if crontb already exists it is updated
 if ! crontab -l | grep -q "$cline" ; then
@@ -28,5 +27,5 @@ fi
 echo finished setting up enableSysbench
 
 echo first run
-bash ~/Modeling4Cloud/utils/registerSysbenchCsv.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err </dev/null &
-echo enablySysbench firt run fnished
+bash ~/Modeling4Cloud/utils/registerSysbenchCSV.sh $PROVIDER $HOST > benchmark-$PROVIDER-$HOST.out 2> benchmark-$PROVIDER-$HOST.err < /dev/null &
+echo enableSysbench first run fnished
