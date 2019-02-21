@@ -12,7 +12,7 @@ FILE=~/csvBenchmark/$PROVIDER-$HOST-$TODAY.csv
 
 if ! [ -f "$FILE" ]
 	then
-		printf "provider, ip, timestamp, threads, total time, total events, cpus\n" >> "$FILE"
+		printf "provider, ip, timestamp, threads, total time(s), total events, cpu(s)\n" >> "$FILE"
 fi
 
 for each in 1 2 4 8 16 32 64
