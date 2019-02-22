@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 
+let Schema = mongoose.Schema;
+
 var BenchmarkSchema = new Schema({
     provider: String,
     ip: String,
