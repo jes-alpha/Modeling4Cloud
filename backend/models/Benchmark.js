@@ -6,9 +6,9 @@ var BenchmarkSchema = new Schema({
     ip: String,
     timestamp: { type : Date, default: Date.now },
     threads: Number,
-    duration: Number,
-    events: Number,
-    eventsPerSec: Number
+    totalTime: Number,
+    totalEvents: Number,
+    cpus: Number
 
 }).plugin(mongoosePaginate);
 
