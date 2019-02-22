@@ -8,6 +8,7 @@ var db = require('./db');
 var Ping = require('../models/Ping');
 var Bandwidth = require('../models/Bandwidth');
 var PingDayAvg = require('../models/PingDayAvg');
+var Benchmark = require('../models/Benchmark');
 
 var app = express();
 var router = express.Router();
@@ -18,6 +19,9 @@ const upload = multer({ dest: UPLOAD_PATH });
 
 const UPLOADBW_PATH = '../uploadsBW/';
 const uploadBW = multer({ dest: UPLOADBW_PATH });
+
+const UPLOADBW_PATH = '../uploadsBM/';
+const uploadBM = multer({ dest: UPLOADBM_PATH });
 
 app.use(paginate.middleware(100, 200));
 
@@ -39,7 +43,23 @@ router.get('/', function (req, res) {
     res.json({ message: 'API Initialized!' });
 });
 
-///
+router.route('/uploadBenchmarks').post(uploadBW.single('data'), function (req, res) {
+    fs.rename(UPLOADBM_PATH + req.file.filename, UPLOADBM_PATH + req.file.originalname, function (err) {
+        if (err) return res.status(500).send("Problem in POST\n");
+        res.status(200).send("File registered\n");
+        console.log("File uploaded(Benchmark test):" + req.file.originalname);
+        const { exec } = require('child_process');
+        exec('tail -n +2 ' + UPLOADBW_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv --columnsHaveTypes --fields "provider.string\(\),ip.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),threads.int32\(\),totalTime.int32\(\),totalEvents.int32\(\),cpus.int32\(\)"', (err, stdout, stderr) => {
+
+            if (err) {
+                // TODO
+                console.log(err)
+                return;
+            }
+        });
+    });
+});
+
 router.route('/upload').post(upload.single('data'), function (req, res) {
     fs.rename(UPLOAD_PATH + req.file.filename, UPLOAD_PATH + req.file.originalname, function (err) {
         if (err) return res.status(500).send("Problem in POST\n");
