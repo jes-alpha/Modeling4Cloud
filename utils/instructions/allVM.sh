@@ -6,5 +6,6 @@ allVM=(
     "AWS ./keys/jBiancoLondon.pem 18.130.96.67"
     "AZR ./keys/jBianco.pem 20.187.2.141"
     "AZR ./keys/jBianco.pem 168.63.37.89"
+    "IBM ./keys/jBianco.pem 169.62.187.221"
 )
 server=("./keys/jBiancoNVirginia.pem 54.234.131.88")
