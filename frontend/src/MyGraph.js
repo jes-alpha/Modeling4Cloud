@@ -30,11 +30,11 @@ export default class MyGraph extends React.Component {
         // TODO if no data
         return ( // TODO
             <div>
-                {(this.props.graphType == 'Pie') ? <Pie data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw/> : null }
-                {(this.props.graphType == 'Doughnut') ? <Doughnut data={this.props.data} width={spec.width} height={spec.height} options={spec.options}  redraw/> : null }
-                {(this.props.graphType == 'HorizontalBar') ? <HorizontalBar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
-                {(this.props.graphType == 'Line') ? <Line data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
-                {(this.props.graphType == 'Bar') ? <Bar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
+                {(this.props.graphType === 'Pie') ? <Pie data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw/> : null }
+                {(this.props.graphType === 'Doughnut') ? <Doughnut data={this.props.data} width={spec.width} height={spec.height} options={spec.options}  redraw/> : null }
+                {(this.props.graphType === 'HorizontalBar') ? <HorizontalBar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
+                {(this.props.graphType === 'Line') ? <Line data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
+                {(this.props.graphType === 'Bar') ? <Bar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
             </div>
         );
     }

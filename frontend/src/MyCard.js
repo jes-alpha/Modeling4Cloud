@@ -367,7 +367,7 @@ export default class MyCard extends React.Component {
 
     async callApi(){
         var query;
-        console.log(this.state.queryNumber)
+        console.log("call api "+this.state.queryNumber);
         switch(this.state.queryNumber){
             case 1:
                 query = backendAddress+this.state.dataType+'/query/avgOfSelectedDate?crossRegion='+((this.state.crossRegion === true) ? 1 : 0)+'&start='+moment(this.state.start).format('YYYY-MM-DD')+'&end='+moment(this.state.end).format('YYYY-MM-DD')
