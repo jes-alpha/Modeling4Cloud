@@ -2,6 +2,8 @@
 PROVIDER=$1
 HOST=$2
 BACKEND_ADDR=$3
+ID=$4
+
 
 cline="~/Modeling4Cloud/utils/registerSysbenchCSV.sh $PROVIDER $HOST > benchmark.out 2> benchmark.err < /dev/null &"
 
@@ -14,7 +16,7 @@ else
 fi
 
 # Schedules the curlCsv script to run each day at midnight
-cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER 0 $BACKEND_ADDR ~/csvBenchmark"
+cline="~/Modeling4Cloud/utils/curlCsv.sh $PROVIDER $ID $BACKEND_ADDR ~/csvBenchmark"
 chmod +x ~/Modeling4Cloud/utils/curlCsv.sh # Makes the script runnable to be able to upload the benchmarking tests to the server
 
 if ! crontab -l | grep -q "$cline" ; then

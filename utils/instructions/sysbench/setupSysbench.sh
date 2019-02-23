@@ -3,13 +3,14 @@ CONFIG=$1
 BACKENDADDR=$2
 
 source $CONFIG
+ID=0
 
 for i in "${allVM[@]}"
 do
     PROVIDER=$(echo $i | awk '{print $1}')
     KEY=$(echo $i | awk '{print $2}')
     HOST=$(echo $i | awk '{print $3}')
-   
+    ID=$((ID+1))
     echo "Setup Sysbench for $PROVIDER $HOST"
     ssh -o StrictHostKeyChecking=no -i $KEY ubuntu@$HOST bash -c "'
 	mkdir -p ~/Modeling4Cloud/utils/
@@ -25,6 +26,6 @@ do
     chmod +x ~/enableSysbench.sh
     chmod +x ~/Modeling4Cloud/utils/registerSysbenchCSV.sh
     chmod +x ~/Modeling4Cloud/utils/setupSysbench.sh
-    ./enableSysbench.sh $PROVIDER $HOST $BACKENDADDR'"
+    ./enableSysbench.sh $PROVIDER $HOST $BACKENDADDR $ID'"
     printf "_____ COMPLETE _____ \n\n\n\n"
 done
