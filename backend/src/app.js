@@ -50,7 +50,7 @@ router.route('/uploadBenchmarks').post(uploadBM.single('data'), function (req, r
         console.log("File uploaded(Benchmark test):" + req.file.originalname);
         const { exec } = require('child_process');
         // exec('tail -n +2 ' + UPLOADBM_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv', (err, stdout, stderr) => {
-        exec('tail -n +2 ' + UPLOADBM_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv --columnsHaveTypes --fields "provider.string\(\),ip.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),threads.int32\(\),totalTime.int32\(\),totalEvents.int32\(\),cpus.int32\(\)"', (err, stdout, stderr) => {
+        exec('tail -n +2 ' + UPLOADBM_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv --columnsHaveTypes --fields "provider.string\(\),ip.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),threads.int32\(\),totalTime.decimal\(\),totalEvents.int32\(\),cpus.int32\(\)"', (err, stdout, stderr) => {
             if (err) {
                 // TODO
                 console.log(err)
