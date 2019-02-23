@@ -249,6 +249,7 @@ export default class MyCard extends React.Component {
 
     handleQueryNumberChange = (event, index, value) => {
         this.setState({queryNumber: value, buttonDisabled: true});
+        console.log("query number: "+ queryNumber);
     }
 
     handleDataTypeChange = (event, index, value) => {
@@ -473,7 +474,7 @@ export default class MyCard extends React.Component {
                                     >
                                         <MenuItem value={'pings'} primaryText="Latency" />
                                         <MenuItem value={'bandwidths'} primaryText="Bandwidth" />
-                                        <MenuItem value={'bandwidths'} primaryText="Benchmark" />
+                                        <MenuItem value={'benchmarks'} primaryText="Benchmark" />
 
                                     </SelectField>
                                     <SelectField
