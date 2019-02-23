@@ -1,10 +1,8 @@
 import React from 'react';
-import {Card, Tabs, Tab, FontIcon, DatePicker, Toggle, GridList, GridTile, SelectField, MenuItem, RaisedButton, TextField, RadioButtonGroup, RadioButton} from 'material-ui/';
+import {Card, Tabs, Tab, FontIcon, DatePicker, Toggle, GridList, GridTile, SelectField, MenuItem, RaisedButton, TextField} from 'material-ui/';
 import MyGraph from './MyGraph';
 import moment from "moment/moment";
 
-//var backendAddress = 'http://localhost:3100/api/';
-//var backendAddress = 'http://137.204.57.136:3100/api/';
 var backendAddress = 'http://18.207.216.202:3100/api/';
 
 var styles = {
@@ -22,6 +20,7 @@ var styles = {
     },
 };
 
+/*
 const pieDoughnutBarHelper = {
     labels: [],
     datasets: [{
@@ -40,7 +39,7 @@ const pieDoughnutBarHelper = {
         ]
     }]
 }
-
+*/
 const horizontalBarHelper = {
     labels: [],
     datasets: [
@@ -190,6 +189,7 @@ const horizontalBarHelper = {
     ]
 }
 
+/*
 const lineHelper = {
     labels: [],
     datasets: [{
@@ -214,7 +214,7 @@ const lineHelper = {
         pointHitRadius: 10
     }]
 }
-
+*/
 export default class MyCard extends React.Component {
     constructor(props){
         super(props)
@@ -237,26 +237,35 @@ export default class MyCard extends React.Component {
 
     handleYearChange = (event, value) => {
         this.setState({year: parseInt(value)}, this.check);
+        console.log("year "+ value);
+
     }
 
     handleProviderChange = (event, value) => {
         this.setState({provider: value}, this.check);
+        console.log("provider "+ value);
+
     }
 
     handleZoneChange = (event, value) => {
         this.setState({zone: value}, this.check);
+        console.log("zone"+ value);
+
     }
 
     handleQueryNumberChange = (event, index, value) => {
         this.setState({queryNumber: value, buttonDisabled: true});
-        console.log("query number: "+ value);
+        console.log("query number "+ value);
+
     }
 
     handleDataTypeChange = (event, index, value) => {
         this.setState({dataType: value, buttonDisabled: true});
+        console.log("data type "+ value);
     }
 
     check(){
+        console.log("check");
         console.log(this.state.dataType + "-" + this.state.queryNumber + "-" + this.state.start + "-" + this.state.end + "-" + this.state.crossRegion)
         if(this.state.dataType && this.state.queryNumber && this.state.start && this.state.end){
             switch(this.state.queryNumber){
@@ -297,6 +306,7 @@ export default class MyCard extends React.Component {
 
     handleCrossRegionChange = (event, isInputChecked) =>{
         this.setState({crossRegion: isInputChecked});
+        console.log("crss region switch "+value);
     }
 
 
@@ -329,6 +339,8 @@ export default class MyCard extends React.Component {
 
 
                 for(let resource of res){
+                    console.log("resource of res "+resource);
+                    console.log("state.querynumber: "+ this.state.queryNumber);
                     switch(this.state.queryNumber){
                         case 1:
                             datasetsModified[0].label = "Comparison between providers based on average of all " + this.state.dataType;
