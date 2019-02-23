@@ -8,7 +8,7 @@ cline="~/Modeling4Cloud/utils/registerSysbenchCSV.sh $PROVIDER $HOST > benchmark
 # Set up the test to run every 30 minutes, if crontb already exists it is updated
 if ! crontab -l | grep -q "$cline" ; then
 	(crontab -l ; echo '45,15 0 * * *' "$cline" ) | crontab -  
-	echo Added crontab for sysbencg
+	echo Added crontab for sysbench
 else
 	echo crontab job for sysbench already present
 fi
