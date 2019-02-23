@@ -473,6 +473,7 @@ export default class MyCard extends React.Component {
                                     >
                                         <MenuItem value={'pings'} primaryText="Latency" />
                                         <MenuItem value={'bandwidths'} primaryText="Bandwidth" />
+                                        <MenuItem value={'bandwidths'} primaryText="Benchmark" />
 
                                     </SelectField>
                                     <SelectField
@@ -480,7 +481,7 @@ export default class MyCard extends React.Component {
                                         value={this.state.queryNumber}
                                         onChange={this.handleQueryNumberChange}
                                     >
-                                        <MenuItem value={1} primaryText="Providers" />
+                                        <MenuItem value={1} primaryText="All Providers" />
                                         <MenuItem value={2} primaryText="Single Provider" />
                                         <MenuItem value={3} primaryText="Single Zone" />
                                     </SelectField>
