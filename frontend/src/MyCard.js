@@ -306,7 +306,7 @@ export default class MyCard extends React.Component {
 
     handleCrossRegionChange = (event, isInputChecked) =>{
         this.setState({crossRegion: isInputChecked});
-        console.log("crss region switch "+value);
+        console.log("crss region switch "+isInputChecked);
     }
 
 
