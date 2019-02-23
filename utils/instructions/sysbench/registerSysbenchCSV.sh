@@ -8,7 +8,7 @@ fi
 
 #chrontab is done at *:45 and *:15 thus it is extremley improbable that the tests are not run in the same day.
 TODAY=$(date +%Y-%m-%d)
-FILE=~/csvBenchmark/$PROVIDER-$HOST-$TODAY.csv
+FILE=~/csvBenchmark/$PROVIDER-$TODAY.csv
 
 if ! [ -f "$FILE" ]
 	then
