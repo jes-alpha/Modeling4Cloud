@@ -1,7 +1,7 @@
  #!/bin/bash
-BACKENDADDRPINGS=http://54.234.131.88:3100/api/upload
-BACKENDADDRBANDWITDHS=http://54.234.131.88:3100/api/uploadBandwidths
-BACKENDADDRBENCHMARKS=http://54.234.131.88:3100/api/uploadBenchmarks
+BACKENDADDRPINGS=http://18.207.216.202:3100/api/upload
+BACKENDADDRBANDWITDHS=http://18.207.216.202:3100/api/uploadBandwidths
+BACKENDADDRBENCHMARKS=http://18.207.216.202:3100/api/uploadBenchmarks
 
 #./cleanCronAndReboot.sh ./allVM.sh
 
