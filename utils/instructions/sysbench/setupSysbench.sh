@@ -25,6 +25,6 @@ do
     chmod +x ~/enableSysbench.sh
     chmod +x ~/Modeling4Cloud/utils/registerSysbenchCSV.sh
     chmod +x ~/Modeling4Cloud/utils/setupSysbench.sh
-    ./enableSysbench.sh $PROVIDER $HOST $BACKENDADDR $INTERVAL '"
+    ./enableSysbench.sh $PROVIDER $HOST $BACKENDADDR'"
     printf "_____ COMPLETE _____ \n\n\n\n"
 done
