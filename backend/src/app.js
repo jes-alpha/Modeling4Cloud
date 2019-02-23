@@ -286,6 +286,31 @@ router.route('/pings').get(async function (req, res, next) {
     }
 });
 
+// TODO
+router.route('/benchmarks').get(async function (req, res, next) {
+    try {
+        const [results, itemCount] = await Promise.all([
+            Benchmark.find().limit(req.query.limit).skip(req.skip).lean().exec(),
+            Benchmark.find().count({})
+        ]);
+
+        const pageCount = Math.ceil(itemCount / req.query.limit);
+
+        if (req.accepts('json')) {
+            res.json({
+                object: 'list',
+                numberOfItems: results.length,
+                totalNumberOfItems: itemCount,
+                totalNumberOfPages: pageCount,
+                hasMorePages: paginate.hasNextPages(req)(pageCount),
+                data: results
+            });
+        }
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.route('/bandwidths').get(async function (req, res, next) {
     try {
         const [results, itemCount] = await Promise.all([
