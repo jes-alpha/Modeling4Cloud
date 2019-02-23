@@ -249,7 +249,7 @@ export default class MyCard extends React.Component {
 
     handleQueryNumberChange = (event, index, value) => {
         this.setState({queryNumber: value, buttonDisabled: true});
-        console.log("query number: "+ queryNumber);
+        console.log("query number: "+ value);
     }
 
     handleDataTypeChange = (event, index, value) => {
