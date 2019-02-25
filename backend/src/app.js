@@ -49,7 +49,6 @@ router.route('/uploadBenchmarks').post(uploadBM.single('data'), function (req, r
         res.status(200).send("File registered\n");
         console.log("File uploaded(Benchmark test):" + req.file.originalname);
         const { exec } = require('child_process');
-        // exec('tail -n +2 ' + UPLOADBM_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv', (err, stdout, stderr) => {
         exec('tail -n +2 ' + UPLOADBM_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c benchmarks --type csv --columnsHaveTypes --fields "provider.string\(\),ip.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),threads.int32\(\),totalTime.decimal\(\),totalEvents.int32\(\),cpus.int32\(\)"', (err, stdout, stderr) => {
             if (err) {
                 // TODO
@@ -68,8 +67,6 @@ router.route('/upload').post(upload.single('data'), function (req, res) {
 
         const { exec } = require('child_process'); // TODO secrets?
         exec('tail -n +2 ' + UPLOAD_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\' | sed \'/,RA,/d\' | mongoimport --uri "' + db.url + '" -c pings --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
-            //exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\' | sed \'/,RA,/d\' | mongoimport -h localhost:27017 -u nodeUser -p modelingforcloudnode -d pings -c pings --authenticationDatabase admin --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
-            //exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' | mongoimport -h 10.0.0.14:27017 -d pings -c pings -u albertobagnacani -p modeling4cloud --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
             if (err) {
                 console.log("Error in uploading file " + req.file.originalname);
                 console.log(err)
@@ -89,9 +86,6 @@ router.route('/uploadBandwidths').post(uploadBW.single('data'), function (req, r
         console.log("File uploaded(Bandwidth test):" + req.file.originalname);
         const { exec } = require('child_process'); // TODO secrets?
         exec('tail -n +2 ' + UPLOADBW_PATH + req.file.originalname + ' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport --uri ' + db.url + ' -c bandwidths --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),bandwidth.double\(\),duration.int32\(\),parallel.int32\(\),transfer.double\(\),retransmissions.int32\(\)"', (err, stdout, stderr) => {
-
-            // exec('tail -n +2 '+ UPLOADBW_PATH+req.file.originalname +' |  sed \'/,,/d\' | sed \'/,SA,/d\'  | mongoimport -h localhost:27017 -d pings -c bandwidths --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),timestamp.date\(2006-01-02T15:04:05-00:00\),bandwidth.double\(\),duration.int32\(\),parallel.int32\(\),transfer.double\(\),retransmissions.int32\(\)"', (err, stdout, stderr) => {
-            // exec('tail -n +2 '+ UPLOAD_PATH+req.file.originalname +' | mongoimport -h 10.0.0.14:27017 -d pings -c pings -u albertobagnacani -p modeling4cloud --type csv --columnsHaveTypes --fields "provider.string\(\),from_zone.string\(\),to_zone.string\(\),from_host.string\(\),to_host.string\(\),icmp_seq.int32\(\),ttl.int32\(\),time.double\(\),timestamp.date\(2006-01-02T15:04:05-00:00\)"', (err, stdout, stderr) => {
             if (err) {
                 // TODO
                 console.log(err)
@@ -853,6 +847,21 @@ router.route('/bandwidths/query/avgOfZoneOfSelectedDate').get(async (req, res, n
             }
         })
 });
+
+
+//----------------------- QUERY BENCHMARKS ----------------------------
+router.route('/bandwidths/query/all').get(async(req, res, next)=>{
+    var start, end;
+
+    start = new Date(req.query.start + "T00:00:00-00:00"); //YYYY-MM-DD
+    end = new Date(req.query.end + "T23:59:59-00:00");
+
+    console.log("received dates: "+start+" "+end);
+    Benchmark.aggregate()
+
+})
+
+
 
 app.use('/api', router);
 

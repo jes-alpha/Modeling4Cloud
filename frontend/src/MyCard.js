@@ -20,26 +20,16 @@ var styles = {
     },
 };
 
+// would be nice if this data was loaded automatically from the db
 /*
-const pieDoughnutBarHelper = {
-    labels: [],
-    datasets: [{
-        data: [],
-        backgroundColor: [
-            '#d50000',
-            '#2962ff',
-            '#00c853',
-            '#ffab00'
-        ],
-        hoverBackgroundColor: [
-            '#ff5252',
-            '#448aff',
-            '#69f0ae',
-            '#ffd740'
-        ]
-    }]
-}
+const providers = [
+    'Amazon',
+    'Azure',
+    'IBM'
+  ];
+const threads = [1,2,4,8,16,32,64]
 */
+
 const horizontalBarHelper = {
     labels: [],
     datasets: [
@@ -220,12 +210,12 @@ export default class MyCard extends React.Component {
         super(props)
 
         this.state = {
-            queryNumber: 1,
-            dataType: 'pings',
-            start: null,
-            end: null,
-            year: null,
-            provider: null,
+            testType: null,         // benchmark or network
+            dataType: null,         // latency, bandwidth
+            queryNumber: null,      // all providers, single provider etc..
+            start: null,            // start date
+            end: null,              // end date
+            provider: null,         // ibm, amazon, azure etc
             zone: null,
             crossRegion: true,
             buttonDisabled: true,
@@ -235,75 +225,77 @@ export default class MyCard extends React.Component {
         }
     }
 
-    /* not used
-    handleYearChange = (event, value) => {
-        this.setState({year: parseInt(value)}, this.check);
-        console.log("year "+ value);
+    //#region  HANDLERS 
+    handleTestTypeChange = (event, index, value) => {
+        this.setState({ testType: value }, this.check);
     }
-    */
 
     handleProviderChange = (event, value) => {
         this.setState({ provider: value }, this.check);
-        console.log("provider " + value);
     }
 
     handleZoneChange = (event, value) => {
         this.setState({ zone: value }, this.check);
-        console.log("zone" + value);
     }
 
     handleQueryNumberChange = (event, index, value) => {
-        this.setState({ queryNumber: value, buttonDisabled: true });
-        console.log("query number " + value);
+        this.setState({ queryNumber: value, buttonDisabled: true }, this.check);
     }
 
     handleDataTypeChange = (event, index, value) => {
-        this.setState({ dataType: value, buttonDisabled: true }, this.check);
-        console.log("data type " + value);
+        this.setState({ dataType: value, buttonDisabled: true });
     }
+
+    //#endregion HANDLERS */
 
     check() {
-        console.log("check");
-        console.log(this.state.dataType + "-" + this.state.queryNumber + "-" + this.state.start + "-" + this.state.end + "-" + this.state.crossRegion)
-        if (this.state.dataType && this.state.queryNumber && this.state.start && this.state.end) {
-            switch (this.state.dataType){
-                case 'benchmarks': console.log("benchmarks case in check");
-                case 'pings':console.log("pings case in check");
-                case 'bandwiidths':console.log("bandwidths case in check");
-            
-            switch (this.state.queryNumber) {
-                case 1:
-                    this.setState({ buttonDisabled: false })
-                    break;
-                case 2:
-                    if (this.state.provider) {
+        // console.log("benchmark: -" + this.state.provider + "-" + this.state.testType);
+        // console.log("network: " + this.state.testType + "-" + this.state.dataType + "-" + this.state.queryNumber + "-" + this.state.start + "-" + this.state.end + "-" + this.state.crossRegion)
+        // network settings
+        if (this.state.testType === 'network') {
+            // check if all data is present
+            if (this.state.dataType && this.state.queryNumber && this.state.start && this.state.end) {
+                switch (this.state.queryNumber) {
+                    case 1:
                         this.setState({ buttonDisabled: false })
-                    }
-                    break;
-                case 3:
-                    if (this.state.provider && this.state.zone) {
-                        this.setState({ buttonDisabled: false })
-                    }
-                    break;
-                default:
-                    this.setState({ buttonDisabled: true })
-                    break;
+                        break;
+                    case 2:
+                        if (this.state.provider) {
+                            this.setState({ buttonDisabled: false })
+                        }
+                        break;
+                    case 3:
+                        if (this.state.provider && this.state.zone) {
+                            this.setState({ buttonDisabled: false })
+                        }
+                        break;
+                    default:
+                        this.setState({ buttonDisabled: true })
+                        break;
+                }
             }
-            default:
+            else {
+                this.setState({ buttonDisabled: true })
+
+            }
+            //benchmark settins
         }
-        }
-        else {
-            this.setState({ buttonDisabled: true })
+        else if (this.state.testType === 'benchmark') {
+            console.log("benchmarks case in check");
+            if (this.state.queryNumber && this.state.start && this.state.end) {
+                this.setState({ buttonDisabled: false });
+            }
+
         }
     }
-
-    handleStartChange = (event, date) => {
+    //#region HANDLERS
+    handleStartDateChange = (event, date) => {
         this.setState({
             start: date,
         }, this.check);
     };
 
-    handleEndChange = (event, date) => {
+    handleEndDateChange = (event, date) => {
         this.setState({
             end: date,
         }, this.check);
@@ -314,11 +306,9 @@ export default class MyCard extends React.Component {
         console.log("crss region switch " + isInputChecked);
     }
 
-
     handleRadioButton = (event, value) => {
         this.setState({ graphType: value });
     }
-
     handleClick = (event) => {
         console.log("handle click ");
         this.callApi()
@@ -370,26 +360,30 @@ export default class MyCard extends React.Component {
             })
             .catch(err => console.log(err))
     } // TODO
-
+    //#endregion HANDLERS
     async callApi() {
         var query;
         console.log("call api: " + this.state.queryNumber);
-        switch (this.state.queryNumber) {
-            case 1:
-                query = backendAddress + this.state.dataType + '/query/avgOfSelectedDate?crossRegion=' + ((this.state.crossRegion === true) ? 1 : 0) + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
-                break;
-            case 2:
-                query = backendAddress + this.state.dataType + '/query/avgOfProviderOfSelectedDate?provider=' + this.state.provider + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
-                break;
-            case 3:
-                query = backendAddress + this.state.dataType + '/query/avgOfZoneOfSelectedDate?provider=' + this.state.provider + '&zone=' + this.state.zone + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
-                break;
-            default:
-
+        if (this.state.testType === 'network') {
+            switch (this.state.queryNumber) {
+                case 1:
+                    query = backendAddress + this.state.dataType + '/query/avgOfSelectedDate?crossRegion=' + ((this.state.crossRegion === true) ? 1 : 0) + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
+                    break;
+                case 2:
+                    query = backendAddress + this.state.dataType + '/query/avgOfProviderOfSelectedDate?provider=' + this.state.provider + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
+                    break;
+                case 3:
+                    query = backendAddress + this.state.dataType + '/query/avgOfZoneOfSelectedDate?provider=' + this.state.provider + '&zone=' + this.state.zone + '&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
+                    break;
+                default:
+            }
+            //var query = (this.state.queryNumber == 1)
+            //    ? 'http://localhost:3100/api/pings/query/avgOfEveryPingOfSelectedDate?start='+moment(this.state.start).format('YYYY-MM-DD')+'&end='+moment(this.state.end).format('YYYY-MM-DD')+'&crossRegion='+((this.state.crossRegion === true) ? -1 : 1)
+            //    : 'http://localhost:3100/api/pings/query/avgOfEveryDayOfSelectedYear?year='+this.state.year+'&crossRegion='+((this.state.crossRegion === true) ? -1 : 1)+'&provider='+this.state.provider;
         }
-        //var query = (this.state.queryNumber == 1)
-        //    ? 'http://localhost:3100/api/pings/query/avgOfEveryPingOfSelectedDate?start='+moment(this.state.start).format('YYYY-MM-DD')+'&end='+moment(this.state.end).format('YYYY-MM-DD')+'&crossRegion='+((this.state.crossRegion === true) ? -1 : 1)
-        //    : 'http://localhost:3100/api/pings/query/avgOfEveryDayOfSelectedYear?year='+this.state.year+'&crossRegion='+((this.state.crossRegion === true) ? -1 : 1)+'&provider='+this.state.provider;
+        else if (this.state.testType === 'benchmark') {
+            query = backendAddress + '/query/getAll?&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
+    }
         const response = await fetch(query);
         const body = await response.json();
 
@@ -400,59 +394,54 @@ export default class MyCard extends React.Component {
         //this.setState({start: null, end: null, buttonDisabled: true})
     }
 
-    renderZero() {
-         console.log("render zero " + this.state.dataType);
-        switch (this.state.dataType) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            default: console.log("render zero " + this.state.dataType);
-        }
-
+    //renders start and end dates for benchmarking
+    renderDates() {
+        return (
+            <div>
+                <DatePicker floatingLabelText="Start Date" hintText="Select start date" value={this.state.start} onChange={this.handleStartDateChange} />
+                <DatePicker floatingLabelText="End Date" hintText="Select end date" value={this.state.end} onChange={this.handleEndDateChange} />
+            </div>
+        )
     }
 
+    //#region RENDERERS
     renderFirst() {
         switch (this.state.queryNumber) {
             case 1:
                 return (
-                    <DatePicker hintText="Select start date" value={this.state.start} onChange={this.handleStartChange} />
-                    //<TextField hintText="Es: 2018" floatingLabelText="Insert year"/>
-                    //<DatePicker hintText="Select start year" value={this.state.start} onChange={this.handleStartChange}/>
+                    <DatePicker hintText="Select start date" value={this.state.start} onChange={this.handleStartDateChange} />
                 )
             case 2:
             case 3:
                 return (
                     <TextField hintText="Select provider (es: 'AWS')" onChange={this.handleProviderChange} />
                 )
-            case 4:
-                return (
-                    <DatePicker hintText="Select start day" value={this.state.start} onChange={this.handleStartChange} />
-                )
+            /*  case 4:
+                 return (
+                     <DatePicker hintText="Select start day" value={this.state.start} onChange={this.handleStartDateChange} />
+                 ) */
             default:
         }
-
     }
 
     renderSecond() {
         switch (this.state.queryNumber) {
             case 1:
                 return (
-                    <DatePicker hintText="Select end date" value={this.state.end} onChange={this.handleEndChange} />
+                    <DatePicker hintText="Select end date" value={this.state.end} onChange={this.handleEndDateChange} />
                     //<TextField hintText="Es: 'AWS'" floatingLabelText="Insert provider"/>
-                    //<DatePicker hintText="Select end year" value={this.state.end} onChange={this.handleEndChange}/>
+                    //<DatePicker hintText="Select end year" value={this.state.end} onChange={this.handleEndDateChange}/>
                 )
             case 2:
             case 3:
                 return (
-                    <DatePicker hintText="Select start date" value={this.state.start} onChange={this.handleStartChange} />
+                    <DatePicker hintText="Select start date" value={this.state.start} onChange={this.handleStartDateChange} />
                 )
-            case 4:
+            /* case 4:
                 return (
-                    <DatePicker hintText="Select end day" value={this.state.end} onChange={this.handleEndChange} />
-                )
+                    <DatePicker hintText="Select end day" value={this.state.end} onChange={this.handleEndDateChange} />
+                ) */
             default:
-
         }
     }
 
@@ -463,14 +452,13 @@ export default class MyCard extends React.Component {
             case 2:
             case 3:
                 return (
-                    <DatePicker hintText="Select end date" value={this.state.end} onChange={this.handleEndChange} />
+                    <DatePicker hintText="Select end date" value={this.state.end} onChange={this.handleEndDateChange} />
                 )
-            case 4:
-                return (
-                    <DatePicker hintText="Select end day" value={this.state.end} onChange={this.handleEndChange} />
-                )
+            /*  case 4:
+                 return (
+                     <DatePicker hintText="Select end day" value={this.state.end} onChange={this.handleEndDateChange} />
+                 ) */
             default:
-
         }
     }
 
@@ -487,7 +475,54 @@ export default class MyCard extends React.Component {
             case 4:
                 return (null)
             default:
+        }
+    }
+    //#endregion RENDERERS
+    renderUI() {
+        if (this.state.testType === "network") {
+            return (
+                <div>
+                    <SelectField
+                        floatingLabelText="Data"
+                        value={this.state.dataType}
+                        onChange={this.handleDataTypeChange}
+                    >
+                        <MenuItem value={'pings'} primaryText="Latency" />
+                        <MenuItem value={'bandwidths'} primaryText="Bandwidth" />
+                    </SelectField>
 
+                    <SelectField
+                        floatingLabelText="Query"
+                        value={this.state.queryNumber}
+                        onChange={this.handleQueryNumberChange}
+                    >
+                        <MenuItem value={1} primaryText="All Providers" />
+                        <MenuItem value={2} primaryText="Single Provider" />
+                        <MenuItem value={3} primaryText="Single Zone" />
+                    </SelectField>
+
+                    {this.renderFirst()}
+                    {this.renderSecond()}
+                    {this.renderThird()}
+                    {this.renderFourth()}
+                </div>
+            )
+        }
+        //TODO add providers multi select, threads and times
+        else if (this.state.testType === "benchmark") {
+            return (
+                <div>
+                    {this.renderDates()}
+                    <SelectField
+                        floatingLabelText="Providers"
+                        value={this.state.queryNumber}
+                        onChange={this.handleQueryNumberChange}
+                    >
+                        <MenuItem value={1} primaryText="All Providers" />
+                        <MenuItem value={2} primaryText="Single Provider" />
+                    </SelectField>
+                </div>
+            )
         }
     }
 
@@ -505,38 +540,18 @@ export default class MyCard extends React.Component {
                             >
                                 <GridTile>
                                     <SelectField
-                                        floatingLabelText="Data"
-                                        value={this.state.dataType}
-                                        onChange={this.handleDataTypeChange}
+                                        floatingLabelText="Test Type"
+                                        value={this.state.testType}
+                                        onChange={this.handleTestTypeChange}
                                     >
-                                        <MenuItem value={'pings'} primaryText="Latency" />
-                                        <MenuItem value={'bandwidths'} primaryText="Bandwidth" />
-                                        <MenuItem value={'benchmarks'} primaryText="Benchmark" />
+                                        <MenuItem value={'benchmark'} primaryText="Benchmark" />
+                                        <MenuItem value={'network'} primaryText="Network" />
+                                    </SelectField>
 
-                                    </SelectField>
-                                    <SelectField
-                                        floatingLabelText="Query"
-                                        value={this.state.queryNumber}
-                                        onChange={this.handleQueryNumberChange}
-                                    >
-                                        <MenuItem value={1} primaryText="All Providers" />
-                                        <MenuItem value={2} primaryText="Single Provider" />
-                                        <MenuItem value={3} primaryText="Single Zone" />
-                                    </SelectField>
-                                    {this.renderZero()}
-                                    {this.renderFirst()}
-                                    {this.renderSecond()}
-                                    {this.renderThird()}
-                                    {this.renderFourth()}
-                                    {/*<GridTile>
-                                    <RadioButtonGroup name="graphType" defaultSelected="Pie" style={{display: 'inline'}} onChange={this.handleRadioButton}>
-                                        <RadioButton value="Pie" label="Pie"/>
-                                        <RadioButton value="Doughnut" label="Doughnut"/>
-                                        <RadioButton value="HorizontalBar" label="HorizontalBar"/>
-                                        <RadioButton value="Line" label="Line"/>
-                                    </RadioButtonGroup>
-                                </GridTile>*/}
+                                    {this.renderUI()}
+
                                     <RaisedButton label="Send" secondary={true} disabled={this.state.buttonDisabled} onClick={this.handleClick} style={{ marginLeft: '27%' }} />
+
                                 </GridTile>
                             </GridList>
                         </div>
