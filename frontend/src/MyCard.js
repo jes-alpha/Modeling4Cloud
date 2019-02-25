@@ -249,8 +249,6 @@ export default class MyCard extends React.Component {
     //#endregion HANDLERS */
 
     check() {
-        // console.log("benchmark: -" + this.state.provider + "-" + this.state.testType);
-        // console.log("network: " + this.state.testType + "-" + this.state.dataType + "-" + this.state.queryNumber + "-" + this.state.start + "-" + this.state.end + "-" + this.state.crossRegion)
         // network settings
         if (this.state.testType === 'network') {
             // check if all data is present
@@ -383,7 +381,7 @@ export default class MyCard extends React.Component {
         }
         else if (this.state.testType === 'benchmark') {
             query = backendAddress + '/query/getAll?&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
-    }
+        }
         const response = await fetch(query);
         const body = await response.json();
 
@@ -404,6 +402,14 @@ export default class MyCard extends React.Component {
         )
     }
 
+    //TODO get list of providers from db and put them in multiple select menu.
+    renderProviderSelection() {
+        if (this.state.queryNumber === 2) {
+            return (
+                <TextField hintText="Select provider (ex: 'AWS, AZR, IBM')" onChange={this.handleProviderChange} />
+            )
+        }
+    }
     //#region RENDERERS
     renderFirst() {
         switch (this.state.queryNumber) {
@@ -521,6 +527,7 @@ export default class MyCard extends React.Component {
                         <MenuItem value={1} primaryText="All Providers" />
                         <MenuItem value={2} primaryText="Single Provider" />
                     </SelectField>
+                    {this.renderProviderSelection()}
                 </div>
             )
         }

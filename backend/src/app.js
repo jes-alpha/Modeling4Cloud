@@ -850,16 +850,45 @@ router.route('/bandwidths/query/avgOfZoneOfSelectedDate').get(async (req, res, n
 
 
 //----------------------- QUERY BENCHMARKS ----------------------------
-router.route('/bandwidths/query/all').get(async(req, res, next)=>{
+router.route('/bandwidths/query/all').get(async (req, res, next) => {
     var start, end;
 
     start = new Date(req.query.start + "T00:00:00-00:00"); //YYYY-MM-DD
     end = new Date(req.query.end + "T23:59:59-00:00");
 
-    console.log("received dates: "+start+" "+end);
+    console.log("received dates: " + start + " " + end);
     Benchmark.aggregate()
-
-})
+        .project({ crossRegion: { $abs: { $cmp: ['$from_zone', '$to_zone'] } }, provider: "$provider", from_zone: "$from_zone", to_zone: "$to_zone", bandwidth: "$bandwidth", timestamp: "$timestamp" })
+        .match({ $and: [{ timestamp: { $gte: start, $lte: end } }] })
+        .group({
+            _id: {
+                provider: "$provider",
+            },
+            avg: { $avg: "$Benchmark" },
+            count: { $sum: 1 }
+        })
+        .group({
+            _id: {
+                provider: "$provider"
+            },
+            avg: { $avg: "$avg" },
+            count: { $sum: 1 }
+        })
+        .project({
+            _id: 0,
+            provider: "$_id.provider",
+            avg: "$avg",
+            count: "$count"
+        })
+        .exec(function (err, resp) {
+            if (err) {
+                // TODO
+                console.log(err);
+            } else {
+                res.json(resp);
+            }
+        })
+});
 
 
 
