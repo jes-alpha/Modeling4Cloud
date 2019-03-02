@@ -1,5 +1,5 @@
 import React from 'react';
-import {Doughnut, Pie, HorizontalBar, Line, Bar} from 'react-chartjs-2';
+import { Doughnut, Pie, HorizontalBar, Line, Bar } from 'react-chartjs-2';
 
 const spec = {
     width: 500,
@@ -7,12 +7,12 @@ const spec = {
     options: {
         maintainAspectRatio: false,
         scales: {
-            yAxes:[{
+            yAxes: [{
                 ticks: {
                     beginAtZero: true
                 }
             }],
-            xAxes:[{
+            xAxes: [{
                 ticks: {
                     beginAtZero: true,
                     autoSkip: false
@@ -28,13 +28,14 @@ const spec = {
 export default class MyGraph extends React.Component {
     render() {
         // TODO if no data
+        console.log("data: "+ this.props.data);
         return ( // TODO
             <div>
-                {(this.props.graphType === 'Pie') ? <Pie data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw/> : null }
-                {(this.props.graphType === 'Doughnut') ? <Doughnut data={this.props.data} width={spec.width} height={spec.height} options={spec.options}  redraw/> : null }
-                {(this.props.graphType === 'HorizontalBar') ? <HorizontalBar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
-                {(this.props.graphType === 'Line') ? <Line data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
-                {(this.props.graphType === 'Bar') ? <Bar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw/> : null }
+                {(this.props.graphType === 'Pie') ? <Pie data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw /> : null}
+                {(this.props.graphType === 'Doughnut') ? <Doughnut data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw /> : null}
+                {(this.props.graphType === 'HorizontalBar') ? <HorizontalBar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw /> : null}
+                {(this.props.graphType === 'Line') ? <Line data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw /> : null}
+                {(this.props.graphType === 'Bar') ? <Bar data={this.props.data} width={spec.width} height={spec.height} options={spec.options} legend={spec.legend} redraw /> : null}
             </div>
         );
     }
