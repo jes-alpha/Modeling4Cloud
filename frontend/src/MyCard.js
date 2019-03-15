@@ -346,7 +346,6 @@ export default class MyCard extends React.Component {
                             datasetsModified[0].data.push(resource.avg)
                             break;
                         default:
-
                     }
                 }
 
@@ -359,6 +358,7 @@ export default class MyCard extends React.Component {
             .catch(err => console.log(err))
     } // TODO
     //#endregion HANDLERS
+
     async callApi() {
         var query;
         console.log("call api: " + this.state.queryNumber);

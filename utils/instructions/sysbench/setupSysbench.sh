@@ -19,7 +19,6 @@ do
     
     scp -r -i $KEY ./sysbench/enableSysbench.sh ubuntu@$HOST:~
     scp -r -i $KEY ./sysbench/registerSysbenchCSV.sh ubuntu@$HOST:~/Modeling4Cloud/utils/
-    scp -r -i $KEY ./sysbench/setupSysbench.sh ubuntu@$HOST:~/Modeling4Cloud/utils/
     scp -r -i $KEY ./curlCsv.sh ubuntu@$HOST:~/Modeling4Cloud/utils/
 
     ssh -i $KEY ubuntu@$HOST bash -c "'

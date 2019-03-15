@@ -1,12 +1,9 @@
 #!/bin/bash
 ####Settings for hping direct tests
 #Provider, source-ssh-keyfile source-ip destination-ip source-zone destination-zone sequence-number
-pings=(
-		"AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 18.232.71.179 us-east-1c us-east-1a 1" 
-		"AWS ./keys/jBiancoNVirginia.pem 184.73.29.174 18.232.71.179 us-east-1a us-east-1a 2" 
-		"AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 184.73.29.174 us-east-1c us-east-1a 3")
-
-
+pings=( "AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 18.232.71.179 us-east-1c us-east-1a 1"
+	"AWS ./keys/jBiancoNVirginia.pem 184.73.29.174 18.232.71.179 us-east-1a us-east-1a 2"
+	"AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 184.73.29.174 us-east-1c us-east-1a 3")
 
 ####Settings for iperf direct tests
 #Provider, source-ssh-keyfile source-ip destination-ssh-keyfile destination-ip source-zone destination-zone connection-port sequence-number hour-interval duration parallel
@@ -14,12 +11,6 @@ iperfs=("AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 ./keys/jBiancoNVirginia.p
 	"AWS ./keys/jBiancoNVirginia.pem 18.205.114.73 ./keys/jBiancoIreland.pem 34.244.169.175 us-east-1c eu-west-1c 80 2 14 1 1" 
 	"AWS ./keys/jBiancoLondon.pem 18.130.96.67 ./keys/jBiancoIreland.pem 34.244.169.175 eu-west-2a eu-west-1c 80 3 14 1 1" 
 	"AWS ./keys/jBiancoLondon.pem 18.130.96.67 ./keys/jBiancoNVirginia.pem 18.205.114.73 eu-west-2a us-east-1c 80 4 14 1 1")
-
-
-####Settings for qperf direct tests
-#Provider, source-ssh-keyfile source-ip destination-ssh-keyfile destination-ip source-zone destination-zone connection-port sequence-number
-#qperfs=("AWS ./keys/aws-imol-paris.pem 35.180.92.154 ./keys/aws-imol-london.pem 18.130.223.116 eu-west-3c eu-west-2c 8080 1")
-
 
 ####Settings for crossregion and sameregion tests
 #Global settings
