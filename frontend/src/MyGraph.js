@@ -28,7 +28,6 @@ const spec = {
 export default class MyGraph extends React.Component {
     render() {
         // TODO if no data
-        console.log(JSON.stringify(this.props));
         return ( // TODO
             <div>
                 {(this.props.graphType === 'Pie') ? <Pie data={this.props.data} width={spec.width} height={spec.height} options={spec.options} redraw /> : null}

@@ -38,7 +38,7 @@ const horizontalBarHelper = {
             borderWidth: 1,
             hoverBackgroundColor: 'rgba(255,99,132,0.4)',
             hoverBorderColor: 'rgba(255,99,132,1)',
-           /* backgroundColor: [
+            backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
                 'rgba(255, 206, 86, 0.6)',
@@ -173,7 +173,7 @@ const horizontalBarHelper = {
                 'rgba(153, 102, 255, 0.6)',
                 'rgba(255, 159, 64, 0.6)',
                 'rgba(255, 99, 132, 0.6)'
-            ],*/
+            ],
             data: []
         }
     ]
@@ -274,16 +274,14 @@ export default class MyCard extends React.Component {
             }
             else {
                 this.setState({ buttonDisabled: true })
-
             }
-            //benchmark settins
+            //benchmark settings
         }
         else if (this.state.testType === 'benchmark') {
             console.log("benchmarks case in check");
-            if (this.state.queryNumber && this.state.start && this.state.end) {
+            if (this.state.start && this.state.end) {
                 this.setState({ buttonDisabled: false });
             }
-
         }
     }
     //#region HANDLERS
@@ -331,8 +329,7 @@ export default class MyCard extends React.Component {
                 labelsModified.length = 0;
 
                 for (let resource of res) {
-                    console.log("resource of res " + resource);
-                    console.log("state.querynumber: " + this.state.queryNumber);
+                    if (this.state.testType === 'network') {
                     switch (this.state.queryNumber) {
                         case 1:
                             datasetsModified[0].label = "Comparison between providers based on average of all " + this.state.dataType;
@@ -348,8 +345,13 @@ export default class MyCard extends React.Component {
                         default:
                     }
                 }
-
+            if (this.state.testType === 'benchmark') {
+                datasetsModified[0].label = "Comparison between providers based on average of all benchmark tests";
+                labelsModified.push(resource.provider)
+                datasetsModified[0].data.push(resource.avg)
+            }
                 this.setState({ graphData: graphDataModified, graphType: graphType, buttonClicked: true, redraw: true })
+        }
 
             })
             .then(() => {
@@ -519,14 +521,14 @@ export default class MyCard extends React.Component {
             return (
                 <div>
                     {this.renderDates()}
-                    <SelectField
+                    {/* <SelectField
                         floatingLabelText="Providers"
                         value={this.state.queryNumber}
                         onChange={this.handleQueryNumberChange}
                     >
                         <MenuItem value={1} primaryText="All Providers" />
                         <MenuItem value={2} primaryText="Single Provider" />
-                    </SelectField>
+                    </SelectField> */}
                     {this.renderProviderSelection()}
                 </div>
             )
