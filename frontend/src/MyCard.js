@@ -3,7 +3,7 @@ import { Card, Tabs, Tab, FontIcon, DatePicker, Toggle, GridList, GridTile, Sele
 import MyGraph from './MyGraph';
 import moment from "moment/moment";
 
-var backendAddress = 'http://18.207.216.202:3100/api/';
+var backendAddress = 'http://3.83.232.170:3100/api/';
 
 var styles = {
     root: {

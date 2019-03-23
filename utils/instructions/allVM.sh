@@ -9,4 +9,4 @@ allVM=(
     "AZR ./keys/jBianco.pem 104.211.155.66 "
     "IBM ./keys/jBianco.pem 169.62.187.221 "
 )
-server=("./keys/jBiancoNVirginia.pem 18.207.216.202")
+server=("./keys/jBiancoNVirginia.pem 3.83.232.170")

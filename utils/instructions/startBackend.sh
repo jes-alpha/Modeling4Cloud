@@ -1,6 +1,6 @@
 #!/bin/bash
 #flag -i in bash necessario per caricare il sourcing in modo da poter eseguire npm
-ssh -t -i ./keys/jBiancoNVirginia.pem ubuntu@18.207.216.202 'sudo bash -i -c " 
+ssh -t -i ./keys/jBiancoNVirginia.pem ubuntu@3.83.232.170 'sudo bash -i -c " 
 
 sudo apt install mongo-tools
 
