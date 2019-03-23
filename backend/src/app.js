@@ -850,21 +850,20 @@ router.route('/bandwidths/query/avgOfZoneOfSelectedDate').get(async (req, res, n
 
 
 //----------------------- QUERY BENCHMARKS ----------------------------
-router.route('/benchmarks/query/all').get(async (req, res, next) => {
+router.route('/benchmarks/query/avgOfSelectedDate').get(async (req, res, next) => {
     var start, end;
 
     start = new Date(req.query.start + "T00:00:00-00:00"); //YYYY-MM-DD
     end = new Date(req.query.end + "T23:59:59-00:00");
-
-    console.log("received dates: " + start + " " + end);
+    console.log("avgOfBWOfDate: start:" + start + ";end:" + end);
     Benchmark.aggregate()
-        .project({ crossRegion: { $abs: { $cmp: ['$from_zone', '$to_zone'] } }, provider: "$provider", from_zone: "$from_zone", to_zone: "$to_zone", bandwidth: "$bandwidth", timestamp: "$timestamp" })
-        .match({ $and: [{ timestamp: { $gte: start, $lte: end } }] })
+        .project({ provider: "$provider",totalEvents: "$totalEvents", timestamp: "$timestamp" })
+        .match({timestamp: { $gte: start, $lte: end } })
         .group({
             _id: {
                 provider: "$provider",
             },
-            avg: { $avg: "$Benchmark" },
+            avg: { $avg: "$totalEvents" },
             count: { $sum: 1 }
         })
         .group({
@@ -889,47 +888,6 @@ router.route('/benchmarks/query/all').get(async (req, res, next) => {
             }
         })
 });
-/*router.route('/benchmarks/query/avgOfSelectedDate').get(async (req, res, next) => {
-    var start, end, crossRegion;
-
-    start = new Date(req.query.start + "T00:00:00-00:00"); //YYYY-MM-DD
-    end = new Date(req.query.end + "T23:59:59-00:00");
-    crossRegion = parseInt(req.query.crossRegion); // 0 or 1
-    console.log("avgOfBWOfDate: start:" + start + ";end:" + end + ";crossRegion:" + crossRegion);
-    Bandwidth.aggregate()
-        .project({ crossRegion: { $abs: { $cmp: ['$from_zone', '$to_zone'] } }, provider: "$provider", from_zone: "$from_zone", to_zone: "$to_zone", bandwidth: "$bandwidth", timestamp: "$timestamp" })
-        .match({ $and: [{ crossRegion: crossRegion }, { timestamp: { $gte: start, $lte: end } }] })
-        .group({
-            _id: {
-                provider: "$provider",
-                from_zone: "$from_zone",
-                to_zone: "$to_zone"
-            },
-            avg: { $avg: "$bandwidth" },
-            count: { $sum: 1 }
-        })
-        .group({
-            _id: {
-                provider: "$provider"
-            },
-            avg: { $avg: "$avg" },
-            count: { $sum: 1 }
-        })
-        .project({
-            _id: 0,
-            provider: "$_id.provider",
-            avg: "$avg",
-            count: "$count"
-        })
-        .exec(function (err, resp) {
-            if (err) {
-                // TODO
-                console.log(err);
-            } else {
-                res.json(resp);
-            }
-        })
-});*/
 
 
 app.use('/api', router);

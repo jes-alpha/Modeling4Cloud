@@ -38,7 +38,7 @@ const horizontalBarHelper = {
             borderWidth: 1,
             hoverBackgroundColor: 'rgba(255,99,132,0.4)',
             hoverBorderColor: 'rgba(255,99,132,1)',
-            backgroundColor: [
+           /* backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
                 'rgba(255, 206, 86, 0.6)',
@@ -173,7 +173,7 @@ const horizontalBarHelper = {
                 'rgba(153, 102, 255, 0.6)',
                 'rgba(255, 159, 64, 0.6)',
                 'rgba(255, 99, 132, 0.6)'
-            ],
+            ],*/
             data: []
         }
     ]
@@ -380,7 +380,7 @@ export default class MyCard extends React.Component {
             //    : 'http://localhost:3100/api/pings/query/avgOfEveryDayOfSelectedYear?year='+this.state.year+'&crossRegion='+((this.state.crossRegion === true) ? -1 : 1)+'&provider='+this.state.provider;
         }
         else if (this.state.testType === 'benchmark') {
-            query = backendAddress + '/query/getAll?&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
+            query = backendAddress + 'benchmarks/query/getAll?&start=' + moment(this.state.start).format('YYYY-MM-DD') + '&end=' + moment(this.state.end).format('YYYY-MM-DD')
         }
         const response = await fetch(query);
         const body = await response.json();
