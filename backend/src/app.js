@@ -865,6 +865,19 @@ router.route('/benchmarks/query/avgOfSelectedDate').get(async (req, res, next) =
             },
             avg: { $avg: "$totalEvents" },
             count: { $sum: 1 }
+        })        
+        .group({
+            _id: {
+                provider: "$provider"
+            },
+            avg: { $avg: "$avg" },
+            count: { $sum: 1 }
+        })
+        .project({
+            _id: 0,
+            provider: "$_id.provider",
+            avg: "$avg",
+            count: "$count"
         })
         .exec(function (err, resp) {
             if (err) {
