@@ -855,7 +855,7 @@ router.route('/benchmarks/query/avgOfSelectedDate').get(async (req, res, next) =
 
     start = new Date(req.query.start + "T00:00:00-00:00"); //YYYY-MM-DD
     end = new Date(req.query.end + "T23:59:59-00:00");
-    console.log("avgOfBWOfDate: start:" + start + ";end:" + end);
+    console.log("avgOfBMOfDate: start:" + start + ";end:" + end);
     Benchmark.aggregate()
         .project({ provider: "$provider",totalEvents: "$totalEvents", timestamp: "$timestamp" })
         .match({timestamp: { $gte: start, $lte: end } })
@@ -873,12 +873,12 @@ router.route('/benchmarks/query/avgOfSelectedDate').get(async (req, res, next) =
             avg: { $avg: "$avg" },
             count: { $sum: 1 }
         })
-        .project({
-            _id: 0,
-            provider: "$_id.provider",
-            avg: "$avg",
-            count: "$count"
-        })
+        // .project({
+        //     _id: 0,
+        //     provider: "$_id.provider",
+        //     avg: "$avg",
+        //     count: "$count"
+        // })
         .exec(function (err, resp) {
             if (err) {
                 // TODO
